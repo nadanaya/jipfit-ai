@@ -1,0 +1,191 @@
+{
+  "generated_at_utc": "2026-07-29T05:20:48.072684+00:00",
+  "dataset": "data\\processed\\synthetic_housing_scenarios.csv",
+  "rows": 6000,
+  "class_distribution": {
+    "0": 4417,
+    "1": 899,
+    "2": 684
+  },
+  "train_rows": 4800,
+  "test_rows": 1200,
+  "selected_model": "logistic_regression",
+  "feature_names": [
+    "age",
+    "monthly_income",
+    "assets",
+    "deposit",
+    "monthly_rent",
+    "management_fee",
+    "monthly_debt_payment",
+    "household_size",
+    "region_cost_index",
+    "is_unemployed",
+    "car_value"
+  ],
+  "models": {
+    "majority_baseline": {
+      "accuracy": 0.7358,
+      "macro_f1": 0.2826,
+      "confusion_matrix": [
+        [
+          883,
+          0,
+          0
+        ],
+        [
+          180,
+          0,
+          0
+        ],
+        [
+          137,
+          0,
+          0
+        ]
+      ],
+      "classification_report": {
+        "안정": {
+          "precision": 0.7358333333333333,
+          "recall": 1.0,
+          "f1-score": 0.8478156505040807,
+          "support": 883.0
+        },
+        "주의": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 180.0
+        },
+        "위험": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 137.0
+        },
+        "accuracy": 0.7358333333333333,
+        "macro avg": {
+          "precision": 0.2452777777777778,
+          "recall": 0.3333333333333333,
+          "f1-score": 0.2826052168346936,
+          "support": 1200.0
+        },
+        "weighted avg": {
+          "precision": 0.5414506944444444,
+          "recall": 0.7358333333333333,
+          "f1-score": 0.6238510161625861,
+          "support": 1200.0
+        }
+      }
+    },
+    "logistic_regression": {
+      "accuracy": 0.9308,
+      "macro_f1": 0.9014,
+      "confusion_matrix": [
+        [
+          820,
+          63,
+          0
+        ],
+        [
+          4,
+          168,
+          8
+        ],
+        [
+          0,
+          8,
+          129
+        ]
+      ],
+      "classification_report": {
+        "안정": {
+          "precision": 0.9951456310679612,
+          "recall": 0.928652321630804,
+          "f1-score": 0.9607498535442296,
+          "support": 883.0
+        },
+        "주의": {
+          "precision": 0.702928870292887,
+          "recall": 0.9333333333333333,
+          "f1-score": 0.801909307875895,
+          "support": 180.0
+        },
+        "위험": {
+          "precision": 0.9416058394160584,
+          "recall": 0.9416058394160584,
+          "f1-score": 0.9416058394160584,
+          "support": 137.0
+        },
+        "accuracy": 0.9308333333333333,
+        "macro avg": {
+          "precision": 0.8798934469256355,
+          "recall": 0.934530498126732,
+          "f1-score": 0.9014216669453944,
+          "support": 1200.0
+        },
+        "weighted avg": {
+          "precision": 0.9452006574047745,
+          "recall": 0.9308333333333333,
+          "f1-score": 0.9347381634143463,
+          "support": 1200.0
+        }
+      }
+    },
+    "random_forest": {
+      "accuracy": 0.9183,
+      "macro_f1": 0.8714,
+      "confusion_matrix": [
+        [
+          830,
+          53,
+          0
+        ],
+        [
+          17,
+          156,
+          7
+        ],
+        [
+          1,
+          20,
+          116
+        ]
+      ],
+      "classification_report": {
+        "안정": {
+          "precision": 0.9787735849056604,
+          "recall": 0.9399773499433749,
+          "f1-score": 0.9589832466782207,
+          "support": 883.0
+        },
+        "주의": {
+          "precision": 0.6812227074235808,
+          "recall": 0.8666666666666667,
+          "f1-score": 0.7628361858190709,
+          "support": 180.0
+        },
+        "위험": {
+          "precision": 0.943089430894309,
+          "recall": 0.8467153284671532,
+          "f1-score": 0.8923076923076924,
+          "support": 137.0
+        },
+        "accuracy": 0.9183333333333333,
+        "macro avg": {
+          "precision": 0.8676952410745168,
+          "recall": 0.8844531150257317,
+          "f1-score": 0.871375708268328,
+          "support": 1200.0
+        },
+        "weighted avg": {
+          "precision": 0.9300670123670525,
+          "recall": 0.9183333333333333,
+          "f1-score": 0.9219490617587128,
+          "support": 1200.0
+        }
+      }
+    }
+  },
+  "warning": "Metrics are measured on synthetic data and do not establish real-world financial validity."
+}

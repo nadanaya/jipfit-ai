@@ -1,0 +1,14 @@
+column,meaning,type,unit_or_allowed_values,source
+age,사용자 나이,integer,19~39,사용자 입력
+monthly_income,월 소득,integer,KRW/month,사용자 입력 또는 합성
+assets,총자산,integer,KRW,사용자 입력 또는 합성
+deposit,임차보증금,integer,KRW,사용자 입력 또는 합성
+monthly_rent,월세,integer,KRW/month,사용자 입력 또는 합성
+management_fee,관리비,integer,KRW/month,사용자 입력 또는 합성
+monthly_debt_payment,월 부채상환액,integer,KRW/month,사용자 입력 또는 합성
+household_size,청년가구 가구원수,integer,1~6,사용자 입력
+region,희망 거주 지역,string,17개 시도,사용자 입력
+region_cost_index,지역 상대 주거비 지수,float,0.78~1.35,데모 가정
+is_unemployed,미취업 여부,integer,0 또는 1,사용자 입력 또는 합성
+car_value,자동차 가액,integer,KRW,사용자 입력 또는 합성
+burden_class,주거비 부담 위험 등급,integer,0 안정 / 1 주의 / 2 위험,합성 타깃 규칙

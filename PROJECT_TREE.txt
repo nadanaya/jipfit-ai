@@ -1,0 +1,75 @@
+jipfit-ai/
+├── app.py
+├── README.md
+├── PROJECT_TREE.txt
+├── requirements.txt
+├── pyproject.toml
+├── setup_windows.bat
+├── run_app.bat
+├── project_state.json
+├── .streamlit/config.toml
+├── assets/
+│   ├── logo.svg
+│   └── demo_result.json
+├── data/
+│   ├── README.md
+│   ├── data-dictionary.csv
+│   ├── jipfit_demo.db
+│   ├── raw/.gitkeep
+│   └── processed/
+│       ├── policy_catalog.csv
+│       ├── regional_cost_index.csv
+│       └── synthetic_housing_scenarios.csv
+├── design/
+│   ├── user-flow.md
+│   ├── figma-handoff.md
+│   └── design-tokens.json
+├── docs/
+│   ├── brief.md
+│   ├── competition-fit.md
+│   ├── architecture.md
+│   ├── api.md
+│   ├── privacy.md
+│   ├── source-notes.md
+│   ├── demo-script.md
+│   ├── pitch-outline.md
+│   ├── judge-qna.md
+│   ├── 4-day-plan.md
+│   ├── testing.md
+│   └── submission-checklist.md
+├── models/
+│   ├── burden_model.joblib
+│   └── README.md
+├── notebooks/01_eda.ipynb
+├── reports/
+│   ├── metrics.json
+│   ├── data-quality.json
+│   ├── error-analysis.md
+│   ├── project-validation.json
+│   └── runtime-smoke.md
+├── scripts/
+│   ├── bootstrap.py
+│   ├── run_demo.py
+│   ├── validate_sqlite.py
+│   ├── validate_project.py
+│   └── package_submission.py
+├── sql/
+│   ├── schema.sql
+│   ├── seed.sql
+│   ├── queries.sql
+│   ├── tests.sql
+│   └── validation-report.json
+├── src/
+│   ├── affordability.py
+│   ├── data_generation.py
+│   ├── train.py
+│   ├── predict.py
+│   ├── policy_engine.py
+│   ├── database.py
+│   └── service.py
+├── submission/one-page-summary.md
+└── tests/
+    ├── test_affordability.py
+    ├── test_policy_engine.py
+    ├── test_database.py
+    └── test_model_and_service.py

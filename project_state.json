@@ -1,0 +1,31 @@
+{
+  "project": "집핏 AI (JipFit AI)",
+  "team": "원루프랩 (OneRoof Lab)",
+  "updated_at": "2026-07-29",
+  "current_stage": "submission package ready",
+  "decisions": [
+    "청년 주거 금융 도우미 주제 선택",
+    "권장 주거비는 규칙, 부담 위험은 ML, 정책은 설명 가능한 조건 엔진으로 분리",
+    "SQLite와 Streamlit으로 오프라인 데모 우선",
+    "합성 데이터와 데모 지역지수의 한계를 명시"
+  ],
+  "assumptions": [
+    "모든 금액은 원 단위로 내부 처리",
+    "보증금 월 환산은 연 4% 기회비용 가정",
+    "지역 주거비 지수는 실거래 통계가 아닌 데모 상대지수"
+  ],
+  "completed_deliverables": [
+    "Streamlit MVP",
+    "합성 데이터 생성기",
+    "모델 학습·평가·추론",
+    "정책 사전진단 엔진",
+    "SQLite 스키마·시드·쿼리·테스트",
+    "단위·통합 테스트",
+    "README·데모 대본·발표 구성·예상 질문"
+  ],
+  "in_progress": [],
+  "blockers": [
+    "Streamlit browser launch must be confirmed on a machine where the package can be installed."
+  ],
+  "next_action": "Run setup_windows.bat on the presentation PC, then record the 3-minute demo."
+}

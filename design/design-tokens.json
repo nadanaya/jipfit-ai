@@ -1,0 +1,36 @@
+{
+  "brand": {
+    "team": "OneRoof Lab",
+    "service": "JipFit AI"
+  },
+  "color": {
+    "primary": "#F4C430",
+    "navy": "#16213E",
+    "surface": "#FFFFFF",
+    "surfaceSoft": "#F8FAFC",
+    "text": "#1F2937",
+    "muted": "#68717D",
+    "success": "#1C8C5C",
+    "warning": "#E6A700",
+    "danger": "#D94343",
+    "border": "#E4E8EE"
+  },
+  "radius": {
+    "card": 16,
+    "button": 12,
+    "input": 10
+  },
+  "spacing": {
+    "xs": 4,
+    "sm": 8,
+    "md": 16,
+    "lg": 24,
+    "xl": 32
+  },
+  "typography": {
+    "display": 32,
+    "title": 24,
+    "body": 16,
+    "caption": 13
+  }
+}

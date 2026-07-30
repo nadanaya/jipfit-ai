@@ -1,0 +1,305 @@
+{
+  "database": ":memory:",
+  "status": "passed",
+  "foreign_keys": true,
+  "transaction_rolled_back": true,
+  "statement_count": 17,
+  "failure": null,
+  "test_conventions": {
+    "foreign_key_check": "must return zero rows",
+    "assertion_columns": "ok/pass/passed/assert_* must return one truthy value"
+  },
+  "results": [
+    {
+      "source": "schema",
+      "index": 1,
+      "sql_preview": "PRAGMA foreign_keys = ON;",
+      "status": "passed",
+      "columns": [],
+      "row_count": -1,
+      "rows_preview": [],
+      "error": null,
+      "assertion": null
+    },
+    {
+      "source": "schema",
+      "index": 2,
+      "sql_preview": "CREATE TABLE IF NOT EXISTS regions ( region_code TEXT PRIMARY KEY, region_name TEXT NOT NULL UNIQUE, demo_cost_index REAL NOT NULL CHECK (demo_cost_index > 0), note TEXT NOT NUL...",
+      "status": "passed",
+      "columns": [],
+      "row_count": -1,
+      "rows_preview": [],
+      "error": null,
+      "assertion": null
+    },
+    {
+      "source": "schema",
+      "index": 3,
+      "sql_preview": "CREATE TABLE IF NOT EXISTS policies ( policy_id TEXT PRIMARY KEY, name TEXT NOT NULL, category TEXT NOT NULL, description TEXT NOT NULL, rule_mode TEXT NOT NULL CHECK (rule_mode...",
+      "status": "passed",
+      "columns": [],
+      "row_count": -1,
+      "rows_preview": [],
+      "error": null,
+      "assertion": null
+    },
+    {
+      "source": "schema",
+      "index": 4,
+      "sql_preview": "CREATE TABLE IF NOT EXISTS analysis_runs ( id INTEGER PRIMARY KEY AUTOINCREMENT, session_id TEXT NOT NULL, age INTEGER NOT NULL CHECK (age BETWEEN 18 AND 100), monthly_income IN...",
+      "status": "passed",
+      "columns": [],
+      "row_count": -1,
+      "rows_preview": [],
+      "error": null,
+      "assertion": null
+    },
+    {
+      "source": "schema",
+      "index": 5,
+      "sql_preview": "CREATE INDEX IF NOT EXISTS idx_analysis_runs_created_at ON analysis_runs(created_at DESC);",
+      "status": "passed",
+      "columns": [],
+      "row_count": -1,
+      "rows_preview": [],
+      "error": null,
+      "assertion": null
+    },
+    {
+      "source": "schema",
+      "index": 6,
+      "sql_preview": "CREATE INDEX IF NOT EXISTS idx_policies_category_active ON policies(category, is_active);",
+      "status": "passed",
+      "columns": [],
+      "row_count": -1,
+      "rows_preview": [],
+      "error": null,
+      "assertion": null
+    },
+    {
+      "source": "seed",
+      "index": 1,
+      "sql_preview": "INSERT OR REPLACE INTO regions (region_code, region_name, demo_cost_index, note) VALUES ('SEOUL', '서울', 1.35, '데모용 상대지수이며 실거래 시세가 아님'), ('GYEONGGI', '경기', 1.15, '데모용 상대지수이며 실거래 ...",
+      "status": "passed",
+      "columns": [],
+      "row_count": 17,
+      "rows_preview": [],
+      "error": null,
+      "assertion": null
+    },
+    {
+      "source": "seed",
+      "index": 2,
+      "sql_preview": "INSERT OR REPLACE INTO policies ( policy_id, name, category, description, rule_mode, official_url, verified_at, source_note, is_active ) VALUES ('YOUTH_MONTHLY_RENT_2026', '청년월세...",
+      "status": "passed",
+      "columns": [],
+      "row_count": 5,
+      "rows_preview": [],
+      "error": null,
+      "assertion": null
+    },
+    {
+      "source": "queries",
+      "index": 1,
+      "sql_preview": "-- 앱에서 사용할 수 있는 활성 정책 목록 SELECT policy_id, name, category, rule_mode, verified_at FROM policies WHERE is_active = 1 ORDER BY category, name;",
+      "status": "passed",
+      "columns": [
+        "policy_id",
+        "name",
+        "category",
+        "rule_mode",
+        "verified_at"
+      ],
+      "row_count": 5,
+      "rows_preview": [
+        [
+          "YOUTH_GUARANTEE_FEE",
+          "청년 보증료 지원",
+          "금융연계",
+          "discovery",
+          "2026-07-29"
+        ],
+        [
+          "YOUTH_JEONSE_LOAN",
+          "청년버팀목전세자금",
+          "금융지원",
+          "discovery",
+          "2026-07-29"
+        ],
+        [
+          "YOUTH_DEPOSIT_RENT_LOAN",
+          "청년전용 보증부월세대출",
+          "금융지원",
+          "discovery",
+          "2026-07-29"
+        ],
+        [
+          "YOUTH_MONTHLY_RENT_2026",
+          "청년월세 지원사업",
+          "주거비지원",
+          "screening",
+          "2026-07-29"
+        ],
+        [
+          "HAPPY_HOUSING_YOUTH_2026",
+          "행복주택 청년계층",
+          "주택공급",
+          "screening",
+          "2026-07-29"
+        ]
+      ],
+      "error": null,
+      "assertion": null
+    },
+    {
+      "source": "queries",
+      "index": 2,
+      "sql_preview": "-- 정책 카테고리별 개수 SELECT category, COUNT(*) AS policy_count FROM policies WHERE is_active = 1 GROUP BY category ORDER BY policy_count DESC, category;",
+      "status": "passed",
+      "columns": [
+        "category",
+        "policy_count"
+      ],
+      "row_count": 4,
+      "rows_preview": [
+        [
+          "금융지원",
+          2
+        ],
+        [
+          "금융연계",
+          1
+        ],
+        [
+          "주거비지원",
+          1
+        ],
+        [
+          "주택공급",
+          1
+        ]
+      ],
+      "error": null,
+      "assertion": null
+    },
+    {
+      "source": "queries",
+      "index": 3,
+      "sql_preview": "-- 최근 분석 로그(데모 DB에 로그가 있을 때 사용) SELECT id, session_id, region_code, risk_class, affordability_ratio, created_at FROM analysis_runs ORDER BY created_at DESC LIMIT 10;",
+      "status": "passed",
+      "columns": [
+        "id",
+        "session_id",
+        "region_code",
+        "risk_class",
+        "affordability_ratio",
+        "created_at"
+      ],
+      "row_count": 0,
+      "rows_preview": [],
+      "error": null,
+      "assertion": null
+    },
+    {
+      "source": "tests",
+      "index": 1,
+      "sql_preview": "PRAGMA foreign_key_check;",
+      "status": "passed",
+      "columns": [
+        "table",
+        "rowid",
+        "parent",
+        "fkid"
+      ],
+      "row_count": 0,
+      "rows_preview": [],
+      "error": null,
+      "assertion": "foreign_key_check returned no violations"
+    },
+    {
+      "source": "tests",
+      "index": 2,
+      "sql_preview": "SELECT COUNT(*) = 17 AS ok FROM regions;",
+      "status": "passed",
+      "columns": [
+        "ok"
+      ],
+      "row_count": 1,
+      "rows_preview": [
+        [
+          1
+        ]
+      ],
+      "error": null,
+      "assertion": "Assertion column 'ok' evaluated to true"
+    },
+    {
+      "source": "tests",
+      "index": 3,
+      "sql_preview": "SELECT COUNT(*) >= 5 AS ok FROM policies WHERE is_active = 1;",
+      "status": "passed",
+      "columns": [
+        "ok"
+      ],
+      "row_count": 1,
+      "rows_preview": [
+        [
+          1
+        ]
+      ],
+      "error": null,
+      "assertion": "Assertion column 'ok' evaluated to true"
+    },
+    {
+      "source": "tests",
+      "index": 4,
+      "sql_preview": "SELECT COUNT(*) = 0 AS ok FROM regions WHERE demo_cost_index <= 0;",
+      "status": "passed",
+      "columns": [
+        "ok"
+      ],
+      "row_count": 1,
+      "rows_preview": [
+        [
+          1
+        ]
+      ],
+      "error": null,
+      "assertion": "Assertion column 'ok' evaluated to true"
+    },
+    {
+      "source": "tests",
+      "index": 5,
+      "sql_preview": "SELECT COUNT(*) = 0 AS ok FROM policies WHERE official_url NOT LIKE 'https://%';",
+      "status": "passed",
+      "columns": [
+        "ok"
+      ],
+      "row_count": 1,
+      "rows_preview": [
+        [
+          1
+        ]
+      ],
+      "error": null,
+      "assertion": "Assertion column 'ok' evaluated to true"
+    },
+    {
+      "source": "tests",
+      "index": 6,
+      "sql_preview": "SELECT COUNT(*) = 0 AS ok FROM policies WHERE rule_mode NOT IN ('screening', 'discovery');",
+      "status": "passed",
+      "columns": [
+        "ok"
+      ],
+      "row_count": 1,
+      "rows_preview": [
+        [
+          1
+        ]
+      ],
+      "error": null,
+      "assertion": "Assertion column 'ok' evaluated to true"
+    }
+  ]
+}

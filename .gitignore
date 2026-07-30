@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.env
+.DS_Store
+Thumbs.db
+reports/project-validation.json
+submission/*.zip
+kb_submission_rebuild/
+scripts/build_kb_submission.py
+docs/judge-qna.md
+*.ppt
+*.pptx
+*.potx
+*.ppsx

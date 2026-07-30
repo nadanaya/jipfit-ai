@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="320" viewBox="0 0 960 320" role="img" aria-labelledby="title desc">
+  <title id="title">JipFit AI by OneRoof Lab</title>
+  <desc id="desc">A simple house outline and the JipFit AI wordmark.</desc>
+  <rect width="960" height="320" rx="36" fill="#FFF9DC"/>
+  <g transform="translate(70 55)">
+    <path d="M20 105 L120 20 L220 105" fill="none" stroke="#16213E" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M52 96 V210 H188 V96" fill="#F4C430" stroke="#16213E" stroke-width="12" stroke-linejoin="round"/>
+    <rect x="106" y="142" width="42" height="68" rx="8" fill="#FFFFFF" stroke="#16213E" stroke-width="8"/>
+    <path d="M198 54 C235 54 256 78 256 108 C256 143 223 168 198 190 C173 168 140 143 140 108 C140 78 161 54 198 54 Z" fill="#1C8C5C" opacity="0.95"/>
+    <path d="M178 109 L194 125 L224 92" fill="none" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g transform="translate(370 84)" fill="#16213E">
+    <text x="0" y="76" font-family="Arial, sans-serif" font-size="76" font-weight="800">JipFit AI</text>
+    <text x="4" y="132" font-family="Arial, sans-serif" font-size="28" font-weight="600">내 소득에 맞는 집, 받을 수 있는 지원까지</text>
+    <text x="4" y="181" font-family="Arial, sans-serif" font-size="24">OneRoof Lab</text>
+  </g>
+</svg>
