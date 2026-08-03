@@ -30,8 +30,11 @@ class AffordabilityResult:
     monthly_housing_cost: int
     deposit_monthly_equivalent: int
     affordability_ratio: float
+    total_fixed_cost_with_debt: int
+    total_fixed_cost_ratio: float
     recommended_max_housing_cost: int
     monthly_gap_to_recommendation: int
+    monthly_gap_to_total_recommendation: int
     disposable_after_housing_and_debt: int
     minimum_living_cost_buffer: int
     rule_risk_class: int
@@ -100,22 +103,27 @@ def calculate_affordability(
     living_buffer = minimum_living_cost(household_size)
     deposit_cost = deposit_monthly_equivalent(deposit, deposit_annual_rate)
     housing_cost = monthly_rent + management_fee + deposit_cost
+    total_fixed_cost = housing_cost + monthly_debt_payment
     affordability_ratio = housing_cost / monthly_income
+    total_fixed_cost_ratio = total_fixed_cost / monthly_income
     disposable = monthly_income - housing_cost - monthly_debt_payment
 
     ratio_cap = int(monthly_income * recommended_ratio)
-    cashflow_cap = int(
-        monthly_income
-        - monthly_debt_payment
-        - living_buffer
-        - monthly_income * savings_rate
-    )
-    recommended = max(0, min(ratio_cap, cashflow_cap))
+    recommended = max(0, ratio_cap)
     gap = recommended - housing_cost
+    total_gap = recommended - total_fixed_cost
 
-    if affordability_ratio <= 0.30 and disposable >= living_buffer * 0.90:
+    if (
+        affordability_ratio <= 0.30
+        and total_fixed_cost_ratio <= 0.30
+        and disposable >= living_buffer * 0.90
+    ):
         rule_class = 0
-    elif affordability_ratio <= 0.45 and disposable >= living_buffer * 0.60:
+    elif (
+        affordability_ratio <= 0.45
+        and total_fixed_cost_ratio <= 0.45
+        and disposable >= living_buffer * 0.60
+    ):
         rule_class = 1
     else:
         rule_class = 2
@@ -124,8 +132,11 @@ def calculate_affordability(
         monthly_housing_cost=int(housing_cost),
         deposit_monthly_equivalent=int(deposit_cost),
         affordability_ratio=round(float(affordability_ratio), 4),
+        total_fixed_cost_with_debt=int(total_fixed_cost),
+        total_fixed_cost_ratio=round(float(total_fixed_cost_ratio), 4),
         recommended_max_housing_cost=int(recommended),
         monthly_gap_to_recommendation=int(gap),
+        monthly_gap_to_total_recommendation=int(total_gap),
         disposable_after_housing_and_debt=int(disposable),
         minimum_living_cost_buffer=int(living_buffer),
         rule_risk_class=int(rule_class),

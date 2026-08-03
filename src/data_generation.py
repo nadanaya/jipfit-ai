@@ -79,13 +79,23 @@ def generate_synthetic_scenarios(
 
     deposit_cost = np.array([deposit_monthly_equivalent(int(v)) for v in deposit])
     housing_cost = monthly_rent + management_fee + deposit_cost
+    total_fixed_cost = housing_cost + monthly_debt_payment
     living_cost = np.array([minimum_living_cost(int(v)) for v in household_size])
     affordability_ratio = housing_cost / monthly_income
+    total_fixed_cost_ratio = total_fixed_cost / monthly_income
     disposable = monthly_income - housing_cost - monthly_debt_payment
 
     risk = np.zeros(rows, dtype=int)
-    medium = (affordability_ratio > 0.30) | (disposable < living_cost * 0.90)
-    high = (affordability_ratio > 0.45) | (disposable < living_cost * 0.58)
+    medium = (
+        (affordability_ratio > 0.30)
+        | (total_fixed_cost_ratio > 0.30)
+        | (disposable < living_cost * 0.90)
+    )
+    high = (
+        (affordability_ratio > 0.45)
+        | (total_fixed_cost_ratio > 0.45)
+        | (disposable < living_cost * 0.58)
+    )
     risk[medium] = 1
     risk[high] = 2
 

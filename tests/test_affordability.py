@@ -15,7 +15,9 @@ def test_affordability_low_burden_case() -> None:
         household_size=1,
     )
     assert result.monthly_housing_cost == 613_333
+    assert result.total_fixed_cost_with_debt == 613_333
     assert result.affordability_ratio < 0.2
+    assert result.total_fixed_cost_ratio < 0.2
     assert result.rule_risk_class == 0
     assert result.recommended_max_housing_cost > result.monthly_housing_cost
 
@@ -30,5 +32,24 @@ def test_affordability_high_burden_case() -> None:
         household_size=1,
     )
     assert result.affordability_ratio > 0.5
+    assert result.total_fixed_cost_ratio > result.affordability_ratio
     assert result.rule_risk_class == 2
     assert result.monthly_gap_to_recommendation < 0
+
+
+def test_debt_included_fixed_cost_can_raise_attention_level() -> None:
+    result = calculate_affordability(
+        monthly_income=3_000_000,
+        deposit=10_000_000,
+        monthly_rent=650_000,
+        management_fee=100_000,
+        monthly_debt_payment=200_000,
+        household_size=1,
+    )
+    assert result.monthly_housing_cost == 783_333
+    assert result.total_fixed_cost_with_debt == 983_333
+    assert result.affordability_ratio == 0.2611
+    assert result.total_fixed_cost_ratio == 0.3278
+    assert result.monthly_gap_to_recommendation == 116_667
+    assert result.monthly_gap_to_total_recommendation == -83_333
+    assert result.rule_risk_class == 1

@@ -1,6 +1,6 @@
 policy_id,name,category,description,rule_mode,official_url,verified_at,source_note
-YOUTH_MONTHLY_RENT_2026,청년월세 지원사업,주거비지원,부모와 별도 거주하는 청년의 월세 부담을 낮추는 지원사업,screening,https://www.myhome.go.kr/hws/portal/dgn/selectSelfDiagnosisYouthHousView.do,2026-07-29,2026년 마이홈 자가진단 기준을 단순화한 사전진단
-HAPPY_HOUSING_YOUTH_2026,행복주택 청년계층,주택공급,청년·대학생·사회초년생 등을 위한 공공임대주택,screening,https://m.myhome.go.kr/hws/portal/cont/selectHappyHouseView.do,2026-07-29,2026년 소득·자산 기준을 단순화한 사전진단
-YOUTH_JEONSE_LOAN,청년버팀목전세자금,금융지원,청년의 전세보증금 마련을 돕는 주택도시기금 대출,discovery,https://www.myhome.go.kr/hws/portal/cont/selectYouthPolicyContRentalView.do,2026-07-29,상품 존재와 분류만 확인하며 실제 한도·금리는 공식 심사 필요
-YOUTH_DEPOSIT_RENT_LOAN,청년전용 보증부월세대출,금융지원,보증금과 월세를 함께 부담하는 청년을 위한 주택도시기금 대출,discovery,https://www.myhome.go.kr/hws/portal/cont/selectYouthPolicyWarrantyMonthlyLoanView.do,2026-07-29,상세 소득·주택요건은 공식 페이지에서 재확인
-YOUTH_GUARANTEE_FEE,청년 보증료 지원,금융연계,전세보증금 반환보증의 보증료 부담을 낮추는 지원,discovery,https://m.myhome.go.kr/hws/mbl/cont/selectYouthPolicyGuaranteeFeeSupView.do,2026-07-29,지역·연령·소득 조건이 달라 공식 공고 확인 필요
+YOUTH_MONTHLY_RENT_2026,청년월세 지원사업,주거비지원,부모와 별도 거주하는 무주택 청년의 월세 부담을 낮추는 지원사업입니다. 입력값만으로는 확정 자격이 아니며 공식 소득 산정과 신청기간 확인이 필요합니다.,screening,https://www.myhome.go.kr/hws/portal/dgn/selectSelfDiagnosisYouthHousView.do,2026-07-29,2026년 마이홈 자가진단 기준을 단순화한 사전진단
+HAPPY_HOUSING_YOUTH_2026,행복주택 청년계층,주택공급,청년·대학생·사회초년생 등을 위한 공공임대주택 후보입니다. 기본 조건 적합성이 높아도 모집공고별 경쟁률·순위·배점 확인이 필요합니다.,screening,https://m.myhome.go.kr/hws/portal/cont/selectHappyHouseView.do,2026-07-29,2026년 소득·자산 기준을 단순화한 사전진단
+YOUTH_JEONSE_LOAN,청년버팀목전세자금대출,금융지원,전세보증금 마련을 돕는 주택도시기금 대출입니다. 현재 월세 계약 입력에서는 전세 매물 전환 시 검토 후보로 낮게 표시합니다.,discovery,https://www.myhome.go.kr/hws/portal/cont/selectYouthPolicyContRentalView.do,2026-07-29,상품 존재와 분류만 확인하며 실제 한도·금리는 공식 심사 필요
+YOUTH_DEPOSIT_RENT_LOAN,청년전용 보증부월세대출,금융지원,보증금과 월세를 함께 부담하는 청년을 위한 주택도시기금 대출입니다. 소득·세대주·대상주택·취급은행 심사를 반드시 확인해야 합니다.,discovery,https://www.myhome.go.kr/hws/portal/cont/selectYouthPolicyWarrantyMonthlyLoanView.do,2026-07-29,상세 소득·주택요건은 공식 페이지에서 재확인
+YOUTH_GUARANTEE_FEE,청년 보증료 지원,금융연계,전월세보증금 반환보증 가입 시 보증료 부담을 낮추는 지자체 연계 지원 후보입니다. 지역 공고와 반환보증 가입 가능 여부 확인이 필요합니다.,discovery,https://m.myhome.go.kr/hws/mbl/cont/selectYouthPolicyGuaranteeFeeSupView.do,2026-07-29,지역·연령·소득 조건에 따라 공식 공고 확인 필요

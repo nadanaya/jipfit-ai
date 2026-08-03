@@ -57,8 +57,10 @@ def test_end_to_end_service_result(tmp_path: Path) -> None:
         log_result=True,
         db_path=tmp_path / "service.db",
     )
-    assert result["affordability"]["monthly_housing_cost"] > 0
-    assert result["model"]["class_id"] in {0, 1, 2}
+    assert result["affordability"]["monthly_housing_cost"] == 783_333
+    assert result["affordability"]["total_fixed_cost_with_debt"] == 983_333
+    assert result["affordability"]["total_fixed_cost_ratio"] == 0.3278
+    assert result["model"]["label"] == "주의"
     assert len(result["policies"]) == 5
     assert len(result["action_plan"]) == 3
     assert result["session_id"]

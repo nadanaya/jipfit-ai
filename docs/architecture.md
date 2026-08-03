@@ -22,7 +22,7 @@ Affordability  ML Classifier   Policy Engine
 │              │               │
 └──────────────┴───────────────┘
                ▼
- 결과 카드 · 정책 후보 · 다음 행동
+ 종합 판정 · 정책 사전진단 · 다음 행동
                │
                ▼
  SQLite 익명 분석 로그(선택)
@@ -30,7 +30,7 @@ Affordability  ML Classifier   Policy Engine
 
 ## 주요 파일
 
-- `src/affordability.py`: 권장 주거비와 현금흐름 계산
+- `src/affordability.py`: 생활 안정 권장선과 월 현금흐름 계산
 - `src/train.py`: 기준 모델과 후보 모델 비교·저장
 - `src/predict.py`: 모델 추론
 - `src/policy_engine.py`: 정책별 설명 가능한 사전진단

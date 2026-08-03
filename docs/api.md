@@ -19,9 +19,9 @@ profile = {
     "region": "서울",
     "is_unemployed": False,
     "car_value": 0,
-    "unhoused": True,
-    "separate_household": True,
-    "unmarried": True,
+    "unhoused_status": "예",
+    "separate_household_status": "예",
+    "unmarried_status": "혼인 중이 아님",
 }
 ```
 
@@ -30,9 +30,9 @@ profile = {
 ### 출력
 
 - `profile_summary`: 지역 지수와 고지문
-- `affordability`: 월 환산 주거비, 권장 상한, 주거비 비율, 잔여금액
-- `model`: 위험 클래스, 확률, 모델 메타데이터
-- `policies`: 정책별 상태·점수·통과·실패·수동 확인 항목
+- `affordability`: 순수 월 주거비, 주거·부채 통합 고정비, 생활 안정 권장선, 초과·여유 금액
+- `model`: 규칙 기반 부담 단계, AI 참고 위험도, 모델 메타데이터
+- `policies`: 정책별 판정 상태, 참고 적합도, 충족 조건, 미충족 조건, 추가 확인 조건
 - `action_plan`: 다음 행동 3개
 - `session_id`: 로그 저장 시 익명 세션 ID
 - `disclaimer`: 금융·정책 자격 비확정 고지

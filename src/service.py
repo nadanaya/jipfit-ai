@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Any, Mapping
 
 from src.affordability import calculate_affordability
-from src.config import DATABASE_PATH, REGION_INDEX_PATH
+from src.config import DATABASE_PATH, REGION_INDEX_PATH, RISK_DESCRIPTIONS, RISK_LABELS
 from src.database import log_analysis_run
 from src.policy_engine import recommend_policies
 from src.predict import predict_burden
@@ -55,31 +55,91 @@ def _build_action_plan(
     affordability: Mapping[str, Any],
     model_result: Mapping[str, Any],
     policies: list[Mapping[str, Any]],
+    profile: Mapping[str, Any],
 ) -> list[str]:
     actions: list[str] = []
-    gap = int(affordability["monthly_gap_to_recommendation"])
+    gap = int(
+        affordability.get(
+            "monthly_gap_to_total_recommendation",
+            affordability["monthly_gap_to_recommendation"],
+        )
+    )
     if gap < 0:
+        gap_man = abs(gap) / 10_000
+        recommended_man = affordability["recommended_max_housing_cost"] / 10_000
         actions.append(
-            f"월 주거비를 최소 {abs(gap):,}원 낮추도록 월세·관리비·보증금 조합을 다시 비교합니다."
+            f"월 {gap_man:,.1f}만 원 절감을 목표로, 통합 고정비가 {recommended_man:,.1f}만 원 이하인 매물과 비교합니다."
         )
     else:
+        gap_man = gap / 10_000
         actions.append(
-            f"현재 계획은 권장 상한보다 월 {gap:,}원 여유가 있으므로 비상저축을 우선 확보합니다."
+            f"주거비와 부채상환을 합친 월 고정비가 권장 기준보다 {gap_man:,.1f}만 원 낮습니다. "
+            "비상자금과 계약 후 현금흐름을 우선 확인합니다."
         )
 
-    top = next((item for item in policies if item["status"] != "현재 입력상 우선순위 낮음"), None)
-    if top:
-        actions.append(
-            f"우선 후보인 ‘{top['name']}’의 공식 자가진단과 최신 모집공고를 확인합니다."
-        )
+    unhoused_status = str(profile.get("unhoused_status", "예" if bool(profile["unhoused"]) else "아니오"))
+    top = next(
+        (
+            item
+            for item in policies
+            if item["status"] not in {"현재 입력상 우선순위 낮음", "핵심요건 미충족"}
+        ),
+        None,
+    )
+    if unhoused_status == "아니오":
+        actions.append("현재 입력상 무주택 요건을 충족하지 않아 주요 청년 임대·대출 정책의 대상 가능성이 낮습니다. 본인과 세대원의 주택·분양권·입주권 보유 여부를 먼저 확인하세요.")
+    elif unhoused_status == "잘 모르겠음":
+        actions.append("본인과 세대원의 주택 소유 여부를 확인한 뒤 정책 진단을 다시 실행합니다.")
+    elif top:
+        actions.append(f"{top['name']}의 공식 자가진단과 최신 모집공고를 먼저 확인합니다.")
     else:
         actions.append("마이홈 자가진단에서 지역별 주거복지사업을 다시 검색합니다.")
 
-    if int(model_result["class_id"]) == 2:
-        actions.append("계약 전 3개월 현금흐름을 점검하고, 보증금 대출·월세 지원을 함께 비교합니다.")
-    else:
-        actions.append("계약 전 반환보증 가능 여부, 관리비 항목, 중도해지 조건을 확인합니다.")
+    actions.append("계약 전 반환보증 가입 가능 여부, 관리비 세부 항목, 중도해지 조건을 확인합니다.")
+
     return actions
+
+
+def _apply_conservative_rule_overlay(
+    affordability: Mapping[str, Any],
+    model_result: Mapping[str, Any],
+) -> dict[str, Any]:
+    rule_class = int(affordability["rule_risk_class"])
+    model_class = int(model_result["class_id"])
+    probabilities = dict(model_result.get("probabilities") or {})
+    ai_reference_score = (
+        probabilities.get("주의", 0.0) * 0.5 + probabilities.get("위험", 0.0)
+        if probabilities
+        else model_class / 2
+    )
+    if rule_class > model_class:
+        return {
+            **model_result,
+            "class_id": rule_class,
+            "label": RISK_LABELS[rule_class],
+            "rule_class_id": rule_class,
+            "rule_label": RISK_LABELS[rule_class],
+            "ai_class_id": model_class,
+            "ai_label": RISK_LABELS[model_class],
+            "ai_reference_score": round(float(ai_reference_score), 2),
+            "description": RISK_DESCRIPTIONS[rule_class],
+            "model_note": (
+                "규칙 기반 진단은 소득 대비 주거비, 부채 포함 통합 고정비, 정책 기본조건 매칭을 봅니다. "
+                "AI 참고 위험도는 합성 데이터 기반 보조 지표입니다."
+            ),
+        }
+    return {
+        **model_result,
+        "rule_class_id": rule_class,
+        "rule_label": RISK_LABELS[rule_class],
+        "ai_class_id": model_class,
+        "ai_label": RISK_LABELS[model_class],
+        "ai_reference_score": round(float(ai_reference_score), 2),
+        "model_note": (
+            "규칙 기반 진단은 소득 대비 주거비, 부채 포함 통합 고정비, 정책 기본조건 매칭을 봅니다. "
+            "AI 참고 위험도는 합성 데이터 기반 보조 지표입니다."
+        ),
+    }
 
 
 def analyze_profile(
@@ -117,9 +177,9 @@ def analyze_profile(
         "is_unemployed": int(bool(profile["is_unemployed"])),
         "car_value": int(profile["car_value"]),
     }
-    model_result = predict_burden(model_features)
+    model_result = _apply_conservative_rule_overlay(affordability_result, predict_burden(model_features))
     policies = recommend_policies(profile)
-    actions = _build_action_plan(affordability_result, model_result, policies)
+    actions = _build_action_plan(affordability_result, model_result, policies, profile)
 
     session_id = None
     if log_result:
@@ -142,5 +202,8 @@ def analyze_profile(
         "policies": policies,
         "action_plan": actions,
         "session_id": session_id,
-        "disclaimer": "본 결과는 참고용 사전 안내입니다. 실제 대출 승인이나 정책 수급 자격을 확정하지 않습니다. 실제 신청 전 공식 기관의 최신 기준과 심사 절차를 확인하세요.",
+        "disclaimer": (
+            "본 결과는 참고용 사전 안내입니다. 실제 대출 승인이나 정책 수급 자격을 확정하지 않습니다. "
+            "실제 신청 전 공식 기관의 최신 기준과 심사 절차를 확인하세요."
+        ),
     }

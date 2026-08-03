@@ -28,6 +28,9 @@ PROFILE = {
     "unhoused": True,
     "separate_household": True,
     "unmarried": True,
+    "unhoused_status": "예",
+    "separate_household_status": "예",
+    "unmarried_status": "혼인 중이 아님",
 }
 
 

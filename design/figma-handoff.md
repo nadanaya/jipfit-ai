@@ -8,16 +8,16 @@ Figma 링크와 편집 권한이 제공되지 않아 실제 프레임은 수정�
 
 - 상단 브랜드 카드: 서비스명, 태그라인, 팀명
 - 3열 입력 카드: 사용자 조건 / 지역·가구 / 집 비용
-- 정책 조건 체크박스 3개
+- 정책 조건 3단계 선택 항목
 - 전체 너비 Primary 버튼
 
 ### 02_Result / Desktop 1440
 
 - KPI 카드 4개
-- 좌측 AI 위험 카드와 확률 차트
-- 우측 현금흐름 차트
-- 정책 후보 테이블
-- 정책 아코디언 상세
+- 종합 판정 카드와 판정 이유 3개
+- 생활 안정 권장선과 통합 고정비 비교 막대
+- 정책 사전진단 카드
+- 정책 상세 아코디언
 - 다음 행동 3개와 고지문
 
 ### 03_Mobile / 390
@@ -31,7 +31,7 @@ Figma 링크와 편집 권한이 제공되지 않아 실제 프레임은 수정�
 - Button: Default / Hover / Disabled / Loading
 - Input: Default / Focus / Error / Filled
 - Risk badge: Stable / Caution / Risk
-- Policy card: Passed / Manual Check / Low Priority
+- Policy card: High Fit / Check Needed / Core Requirement Failed
 - Notice: Info / Warning / Legal disclaimer
 
 ## 접근성
